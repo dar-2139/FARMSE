@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/Card';
-import Button from '../ui/Button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import Button from '../ui/button';
 import { Star, MapPin, ArrowRight, Shield } from 'lucide-react';
 
 const FarmerShowcase = () => {
