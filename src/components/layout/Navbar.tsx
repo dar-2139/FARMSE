@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown, User, ShoppingCart } from 'lucide-react';
 import Button from '../ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +26,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'For Farmers', href: '#', hasDropdown: true },
-    { name: 'Marketplace', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'For Farmers', href: '/farmers', hasDropdown: true },
+    { name: 'Marketplace', href: '/marketplace' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -65,9 +66,9 @@ const Navbar = () => {
                 {link.hasDropdown && (
                   <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform -translate-y-2 group-hover:translate-y-0">
                     <div className="py-1" role="menu" aria-orientation="vertical">
-                      <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Sell Your Crops</Link>
-                      <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Farmer Dashboard</Link>
-                      <Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Resources</Link>
+                      <Link to="/farmers/sell-crops" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Sell Your Crops</Link>
+                      <Link to="/farmers/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Farmer Dashboard</Link>
+                      <Link to="/farmers/resources" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Resources</Link>
                     </div>
                   </div>
                 )}
@@ -77,10 +78,20 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex md:items-center md:gap-4">
-            <Button variant="ghost" size="sm" icon={<User size={18} />}>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              icon={<User size={18} />}
+              onClick={() => navigate('/login')}
+            >
               Login
             </Button>
-            <Button variant="primary" size="sm" icon={<ShoppingCart size={18} />}>
+            <Button 
+              variant="primary" 
+              size="sm" 
+              icon={<ShoppingCart size={18} />}
+              onClick={() => navigate('/marketplace')}
+            >
               Shop Now
             </Button>
           </div>
@@ -110,6 +121,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.href}
                 className="block py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5 rounded-md px-3"
+                onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
               </Link>
@@ -117,10 +129,28 @@ const Navbar = () => {
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            <Button fullWidth variant="outline" size="md" icon={<User size={18} />}>
+            <Button 
+              fullWidth 
+              variant="outline" 
+              size="md" 
+              icon={<User size={18} />}
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/login');
+              }}
+            >
               Login
             </Button>
-            <Button fullWidth variant="primary" size="md" icon={<ShoppingCart size={18} />}>
+            <Button 
+              fullWidth 
+              variant="primary" 
+              size="md" 
+              icon={<ShoppingCart size={18} />}
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/marketplace');
+              }}
+            >
               Shop Now
             </Button>
           </div>
