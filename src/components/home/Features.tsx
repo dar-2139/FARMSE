@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Shield, TrendingUp, Leaf, Users, MessageSquare, Truck, CreditCard, Smartphone } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 const Features = () => {
   const features = [

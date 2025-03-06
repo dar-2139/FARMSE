@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { Card, CardContent } from '../components/ui/card';
-import Button from '../components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import Button from '@/components/ui/button';
 import { Search, Filter, ShoppingCart, Star, MapPin } from 'lucide-react';
 
 const Marketplace = () => {
@@ -11,10 +11,10 @@ const Marketplace = () => {
   
   useEffect(() => {
     // Set page title
-    document.title = 'Marketplace - FarmSE';
+    document.title = 'Marketplace - FarmSE Gujarat';
   }, []);
 
-  // Mock product data
+  // Updated product data with Gujarat locations
   const products = [
     {
       id: 1,
@@ -22,8 +22,8 @@ const Marketplace = () => {
       price: 60,
       unit: "kg",
       image: "https://images.unsplash.com/photo-1546233255-a2a568e864a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-      farmer: "Ramesh Farms",
-      location: "Karnataka",
+      farmer: "Patel Farms",
+      location: "Anand, Gujarat",
       category: "vegetables",
       rating: 4.8,
       organic: true
@@ -34,8 +34,8 @@ const Marketplace = () => {
       price: 120,
       unit: "kg",
       image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-      farmer: "Himachal Orchards",
-      location: "Himachal Pradesh",
+      farmer: "Kutch Orchards",
+      location: "Bhuj, Gujarat",
       category: "fruits",
       rating: 4.6,
       organic: false
@@ -47,7 +47,7 @@ const Marketplace = () => {
       unit: "kg",
       image: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
       farmer: "Green Harvest",
-      location: "West Bengal",
+      location: "Rajkot, Gujarat",
       category: "grains",
       rating: 4.9,
       organic: true
@@ -58,8 +58,8 @@ const Marketplace = () => {
       price: 80,
       unit: "dozen",
       image: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-      farmer: "Kerala Farms",
-      location: "Kerala",
+      farmer: "Surat Farms",
+      location: "Surat, Gujarat",
       category: "fruits",
       rating: 4.7,
       organic: false
@@ -71,7 +71,7 @@ const Marketplace = () => {
       unit: "bunch",
       image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
       farmer: "Green Leaf Farms",
-      location: "Punjab",
+      location: "Gandhinagar, Gujarat",
       category: "vegetables",
       rating: 4.5,
       organic: true
@@ -83,7 +83,7 @@ const Marketplace = () => {
       unit: "kg",
       image: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
       farmer: "Organic Mills",
-      location: "Uttar Pradesh",
+      location: "Mehsana, Gujarat",
       category: "grains",
       rating: 4.8,
       organic: true

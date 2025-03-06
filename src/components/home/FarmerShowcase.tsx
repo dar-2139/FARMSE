@@ -1,26 +1,26 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
-import Button from '../ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import Button from '@/components/ui/button';
 import { Star, MapPin, ArrowRight, Shield } from 'lucide-react';
 
 const FarmerShowcase = () => {
   const farmers = [
     {
       id: 1,
-      name: 'Rajesh Kumar',
+      name: 'Rajesh Patel',
       image: 'https://images.unsplash.com/photo-1595827432953-e83e2c7dd932?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-      location: 'Punjab, India',
-      specialty: 'Organic Wheat & Rice',
+      location: 'Ahmedabad, Gujarat',
+      specialty: 'Organic Cotton & Groundnuts',
       rating: 4.8,
       reviewCount: 152,
       verified: true
     },
     {
       id: 2,
-      name: 'Sunita Devi',
+      name: 'Sunita Desai',
       image: 'https://images.unsplash.com/photo-1610917047732-7a4606dbd841?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-      location: 'Gujarat, India',
+      location: 'Surat, Gujarat',
       specialty: 'Fresh Vegetables',
       rating: 4.7,
       reviewCount: 98,
@@ -28,10 +28,10 @@ const FarmerShowcase = () => {
     },
     {
       id: 3,
-      name: 'Mohammad Fazal',
+      name: 'Mohammad Ishaq',
       image: 'https://images.unsplash.com/photo-1605186530487-2a5fa5a1e3f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80',
-      location: 'Karnataka, India',
-      specialty: 'Exotic Fruits',
+      location: 'Vadodara, Gujarat',
+      specialty: 'Mangoes & Bananas',
       rating: 4.9,
       reviewCount: 124,
       verified: true
