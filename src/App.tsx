@@ -11,6 +11,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Marketplace from "./pages/Marketplace";
 import Farmers from "./pages/Farmers";
+import Dashboard from "./pages/Dashboard";
+import FarmerProfile from "./pages/FarmerProfile";
+import MyCrops from "./pages/MyCrops";
+import Orders from "./pages/Orders";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +31,11 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/farmers" element={<Farmers />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/farmer-dashboard" element={<Dashboard />} />
+          <Route path="/rep-dashboard" element={<Dashboard />} />
+          <Route path="/farmer-profile" element={<FarmerProfile />} />
+          <Route path="/my-crops" element={<MyCrops />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

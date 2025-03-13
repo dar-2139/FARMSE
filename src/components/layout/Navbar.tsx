@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, User, ShoppingCart } from 'lucide-react';
 import Button from '../ui/button';
 
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navLinks = [
@@ -31,6 +37,8 @@ const Navbar = () => {
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav 
@@ -56,7 +64,9 @@ const Navbar = () => {
               <div key={link.name} className="relative group">
                 <Link
                   to={link.href}
-                  className="flex items-center text-sm font-medium text-gray-700 hover:text-primary transition-colors duration-300"
+                  className={`flex items-center text-sm font-medium transition-colors duration-300 ${
+                    isActive(link.href) ? 'text-primary' : 'text-gray-700 hover:text-primary'
+                  }`}
                 >
                   {link.name}
                   {link.hasDropdown && (
@@ -67,7 +77,7 @@ const Navbar = () => {
                   <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform -translate-y-2 group-hover:translate-y-0">
                     <div className="py-1" role="menu" aria-orientation="vertical">
                       <Link to="/farmers/sell-crops" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Sell Your Crops</Link>
-                      <Link to="/farmers/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Farmer Dashboard</Link>
+                      <Link to="/farmer-dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Farmer Dashboard</Link>
                       <Link to="/farmers/resources" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary" role="menuitem">Resources</Link>
                     </div>
                   </div>
@@ -120,12 +130,34 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="block py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5 rounded-md px-3"
-                onClick={() => setIsMenuOpen(false)}
+                className={`block py-2 text-base font-medium rounded-md px-3 ${
+                  isActive(link.href) 
+                  ? 'text-primary bg-primary/5' 
+                  : 'text-gray-700 hover:text-primary hover:bg-primary/5'
+                }`}
               >
                 {link.name}
               </Link>
             ))}
+            {/* Additional mobile links for farmer dropdown */}
+            <Link
+              to="/farmers/sell-crops"
+              className="block py-2 pl-8 text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 rounded-md"
+            >
+              Sell Your Crops
+            </Link>
+            <Link
+              to="/farmer-dashboard"
+              className="block py-2 pl-8 text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 rounded-md"
+            >
+              Farmer Dashboard
+            </Link>
+            <Link
+              to="/farmers/resources"
+              className="block py-2 pl-8 text-sm font-medium text-gray-700 hover:text-primary hover:bg-primary/5 rounded-md"
+            >
+              Resources
+            </Link>
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
@@ -135,7 +167,6 @@ const Navbar = () => {
               size="md" 
               icon={<User size={18} />}
               onClick={() => {
-                setIsMenuOpen(false);
                 navigate('/login');
               }}
             >
@@ -147,7 +178,6 @@ const Navbar = () => {
               size="md" 
               icon={<ShoppingCart size={18} />}
               onClick={() => {
-                setIsMenuOpen(false);
                 navigate('/marketplace');
               }}
             >

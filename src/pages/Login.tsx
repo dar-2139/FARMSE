@@ -1,11 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { User, Mail, Lock, Phone, ArrowRight, Check } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { User, Mail, Lock, Phone, ArrowRight, Check, Briefcase, Store, UserCheck } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Button from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
+import { toast } from '@/hooks/use-toast';
+
+const userTypes = [
+  { id: 'farmer', name: 'Farmer', icon: <Store size={24} />, description: 'List your crops and connect with buyers' },
+  { id: 'consumer', name: 'Consumer', icon: <User size={24} />, description: 'Buy fresh produce directly from farmers' },
+  { id: 'representative', name: 'FarmSE Representative', icon: <UserCheck size={24} />, description: 'Verify farmers and assist in onboarding' }
+];
 
 const Login = () => {
   const [activeTab, setActiveTab] = useState('login');
@@ -13,7 +20,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
+  const [userType, setUserType] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Set page title
@@ -27,20 +36,55 @@ const Login = () => {
     // Simulate login process
     setTimeout(() => {
       console.log('Login attempt:', { email, password });
+      toast({
+        title: 'Login successful!',
+        description: 'Welcome back to FarmSE',
+      });
       setIsLoading(false);
-      // Handle login success - would typically redirect user
+      // Redirect based on user type
+      if (email.includes('farmer')) {
+        navigate('/farmer-dashboard');
+      } else if (email.includes('rep')) {
+        navigate('/rep-dashboard');
+      } else {
+        navigate('/marketplace');
+      }
     }, 1500);
   };
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!userType) {
+      toast({
+        title: 'Please select a user type',
+        description: 'Select whether you are a farmer, consumer, or representative',
+        variant: 'destructive',
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
     // Simulate registration process
     setTimeout(() => {
-      console.log('Register attempt:', { name, email, phone, password });
+      console.log('Register attempt:', { name, email, phone, password, userType });
+      toast({
+        title: 'Registration successful!',
+        description: userType === 'farmer' 
+          ? 'Please complete your profile to start selling crops' 
+          : 'Welcome to FarmSE! You can now browse and shop for fresh produce',
+      });
       setIsLoading(false);
-      // Handle registration success - would typically redirect user or show verification message
+      
+      // Redirect based on user type
+      if (userType === 'farmer') {
+        navigate('/farmer-dashboard');
+      } else if (userType === 'representative') {
+        navigate('/rep-dashboard');
+      } else {
+        navigate('/marketplace');
+      }
     }, 1500);
   };
 
@@ -131,6 +175,35 @@ const Login = () => {
                   </form>
                 ) : (
                   <form onSubmit={handleRegister} className="space-y-4">
+                    {/* User Type Selection */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">I am a</label>
+                      <div className="grid grid-cols-1 gap-3">
+                        {userTypes.map((type) => (
+                          <div
+                            key={type.id}
+                            className={`flex items-center p-3 rounded-md border cursor-pointer transition-all ${
+                              userType === type.id 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-gray-200 hover:border-primary/50'
+                            }`}
+                            onClick={() => setUserType(type.id)}
+                          >
+                            <div className={`p-2 rounded-full ${userType === type.id ? 'bg-primary/20' : 'bg-gray-100'}`}>
+                              {type.icon}
+                            </div>
+                            <div className="ml-3">
+                              <p className="font-medium">{type.name}</p>
+                              <p className="text-sm text-gray-500">{type.description}</p>
+                            </div>
+                            {userType === type.id && (
+                              <Check size={20} className="ml-auto text-primary" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">Full Name</label>
                       <div className="relative">
@@ -201,6 +274,12 @@ const Login = () => {
                         />
                       </div>
                     </div>
+                    
+                    {userType === 'farmer' && (
+                      <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+                        <p className="text-sm text-yellow-800">As a farmer, you'll need to verify your identity using Aadhaar via DigiLocker after registration.</p>
+                      </div>
+                    )}
                     
                     <div className="flex items-center space-x-2 mt-4">
                       <input
