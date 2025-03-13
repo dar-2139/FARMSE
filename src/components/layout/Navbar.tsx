@@ -6,6 +6,13 @@ import Button from '../ui/button';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useAuth } from '@/context/AuthContext';
 
+// Define a proper type for navigation links
+interface NavLink {
+  name: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,7 +41,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   // Base navigation links
-  const baseNavLinks = [
+  const baseNavLinks: NavLink[] = [
     { name: 'Home', href: '/' },
     { name: 'Marketplace', href: '/marketplace' },
     { name: 'About Us', href: '/about' },
@@ -42,7 +49,7 @@ const Navbar = () => {
   ];
 
   // Conditional navigation links based on user type
-  let navLinks = [...baseNavLinks];
+  let navLinks: NavLink[] = [...baseNavLinks];
   
   if (profile) {
     if (profile.user_type === 'farmer') {
